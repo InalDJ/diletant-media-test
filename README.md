@@ -5,7 +5,7 @@
 * Users can sign up for the website and they will receive a confirmation email. After a user has clicked on a link his account becomes activated and he becomes an authenticated user.
 * Authenticated Users can write, delete or edit articles.
 * Authentication is based on JWT tokens implemented with Spring Security.
-* After Users have clicked on an article, they are articles being recommended them. The recommendation algoritm is based on tags and author's name.
+* After Users have clicked on an article, there are articles being recommended them. The recommendation algoritm is based on tags and author's name.
 * Users are able to search for articles by author's name, tags, title and words in the text they contain.
 
 *Features:*
