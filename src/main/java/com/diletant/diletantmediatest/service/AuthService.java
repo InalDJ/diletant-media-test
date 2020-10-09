@@ -48,16 +48,17 @@ public class AuthService {
 
 
     public AuthenticationResponse login(LoginRequest loginRequest) throws DiletantMediaException {
-        try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
-        } catch (Exception e){
-            throw new DiletantMediaException("invalid username/password");
-        }
 
         User userFound = userRepository.findByUserName(loginRequest.getUserName()).orElseThrow(() -> new DiletantMediaException("User not found"));
 
         if(userFound.isEnabled() == false){
             throw new DiletantMediaException("Your account has not been activated");
+        }
+
+        try{
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
+        } catch (Exception e){
+            throw new DiletantMediaException("invalid username/password");
         }
 
         var authenticationResponse = new AuthenticationResponse();
