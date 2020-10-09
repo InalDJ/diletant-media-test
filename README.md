@@ -1,4 +1,4 @@
-### **This is a simple REST service for articles recommendation**
+### **This is a simple REST service for article recommendation**
 
 *Functionality:*
 
