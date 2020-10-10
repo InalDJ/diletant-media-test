@@ -1,9 +1,9 @@
 package com.diletant.diletantmediatest.service;
 
-import com.diletant.diletantmediatest.DiletantMediaTestApplication;
 import com.diletant.diletantmediatest.dto.LoginRequest;
 import com.diletant.diletantmediatest.dto.RegisterRequest;
 import com.diletant.diletantmediatest.entity.User;
+import com.diletant.diletantmediatest.entity.VerificationToken;
 import com.diletant.diletantmediatest.exception.DiletantMediaException;
 import com.diletant.diletantmediatest.exception.ResourceNotFoundException;
 import com.diletant.diletantmediatest.repository.UserRepository;
@@ -14,12 +14,13 @@ import org.mockito.Mock;
 import static org.mockito.ArgumentMatchers.any;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+import java.time.Instant;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -30,21 +31,15 @@ class AuthServiceTest {
     private AuthService authService;
 
     @Mock
-    private AuthenticationManager authenticationManager;
-
-    @Mock
     private UserRepository userRepository;
 
     RegisterRequest userJuniorSignup;
-
     LoginRequest userJuniorLogin;
-
     User userJunior;
-
+    VerificationToken verificationToken;
 
     @BeforeEach
     void setUp() {
-
         MockitoAnnotations.initMocks(this);
 
         //given data for signup
@@ -64,6 +59,12 @@ class AuthServiceTest {
         userJunior.setUserName("Junior Dos Santos");
         userJunior.setEmail("jds@gmail.com");
         userJunior.setPassword("cigano");
+
+        //given verification token
+        verificationToken = new VerificationToken();
+        verificationToken.setUser(userJunior);
+        verificationToken.setToken(UUID.randomUUID().toString());
+        verificationToken.setExpiryDate(Instant.now());
     }
 
 
@@ -131,14 +132,5 @@ class AuthServiceTest {
         assertThat(userFound.getPassword()).isEqualTo(userJunior.getPassword());
 
         assertThat(userFound.isEnabled()).isEqualTo(false);
-    }
-
-
-    @Test
-    void verifyAccount() {
-    }
-
-    @Test
-    void refreshToken() {
     }
 }

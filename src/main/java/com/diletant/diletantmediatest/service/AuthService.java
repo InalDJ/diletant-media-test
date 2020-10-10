@@ -113,7 +113,7 @@ public class AuthService {
         fetchUserAndEnable(verificationToken);
     }
 
-    private void fetchUserAndEnable(VerificationToken verificationToken){
+    public void fetchUserAndEnable(VerificationToken verificationToken){
         String username = verificationToken.getUser().getUserName();
         User user = userRepository.findByUserName(username).orElseThrow(()-> new DiletantMediaException("User Not Found"));
 

@@ -54,8 +54,6 @@ public class PostService {
         return recommendedPosts;
     }
 
-
-
     public Post createPost(PostRequest postRequest){
         return postRepository.save(mapDtoToEntity(postRequest));
     }
@@ -88,7 +86,6 @@ public class PostService {
 
         return post;
     }
-
 
     public Set<Post> searchPosts(String keyword) {
         if(keyword == null){

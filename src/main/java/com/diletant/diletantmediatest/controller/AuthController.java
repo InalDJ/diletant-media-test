@@ -47,7 +47,6 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) throws DiletantMediaException {
         AuthenticationResponse login = authService.login(loginRequest);
-        System.out.println("Refresh token generated during login: "+login.getRefreshToken());
         return ResponseEntity.status(HttpStatus.OK).body(login);
     }
 

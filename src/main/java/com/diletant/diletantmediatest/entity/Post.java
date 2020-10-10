@@ -25,7 +25,6 @@ public class Post {
     @Lob
     private String text;
 
-
     @Column
     @NotNull
     private String author;
